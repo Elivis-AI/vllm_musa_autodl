@@ -23,6 +23,7 @@ from vllm.sequence import ExecuteModelRequest, SamplerOutput
 from vllm.worker.cache_engine import CacheEngine
 from vllm.worker.model_runner import ModelRunner
 from vllm.worker.worker_base import WorkerBase
+from vllm.utils import is_musa
 
 
 class Worker(WorkerBase):
@@ -175,7 +176,7 @@ class Worker(WorkerBase):
         if self.model_runner.lora_manager:
             self.model_runner.remove_all_loras()
         gc.collect()
-        torch.cuda.empty_cache()
+        torch.musa.empty_cache()
         return num_gpu_blocks, num_cpu_blocks
 
     def initialize_cache(self, num_gpu_blocks: int,
@@ -318,8 +319,14 @@ def init_worker_distributed_environment(
         # NOTE(woosuk): We don't initialize pynccl process group when world size
         # is 1.
         # NOTE(kaichao): By default, pynccl is initialized for tp group.
-        pymccl_utils.init_process_group(
-            group=get_tensor_model_parallel_cpu_group())
+        if backend == "mccl":
+            torch.distributed.all_reduce(torch.zeros(1).musa())
+            if pymccl_utils.is_initialized():
+                pymccl_utils.all_reduce(torch.zeros(1).musa())
+        else:
+            torch.distributed.all_reduce(torch.zeros(1).cuda())
+            if pymccl_utils.is_initialized():
+                pymccl_utils.all_reduce(torch.zeros(1).cuda())
 
     # Initialize a custom fast all-reduce implementation.
     if not parallel_config.disable_custom_all_reduce:
@@ -339,6 +346,7 @@ def init_worker_distributed_environment(
 def _check_if_gpu_supports_dtype(torch_dtype: torch.dtype):
     # Check if the GPU supports the dtype.
     if torch_dtype == torch.bfloat16:
+        if is_musa(): return
         compute_capability = torch.cuda.get_device_capability()
         if compute_capability[0] < 8:
             gpu_name = torch.cuda.get_device_name()
