@@ -3,5 +3,5 @@
 
 # Dependencies for MTHREADS GPUs
 ray >= 2.9
-torch == 2.2.0
+torch>=2.2.0a0,<2.2.1
 triton >= 2.2.0  # FIXME(woosuk): This is a hack to avoid import error.
