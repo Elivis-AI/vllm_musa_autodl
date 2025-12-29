@@ -53,7 +53,7 @@ prompts = [
 ]
 
 sampling_params = SamplingParams(temperature=0.8, top_p=0.95)
-llm = LLM(model=model_path, trust_remote_code=True, device="musa")
+llm = LLM(model=model_path, dtype="float16",trust_remote_code=True, device="musa")
 
 outputs = llm.generate(prompts, sampling_params)
 
