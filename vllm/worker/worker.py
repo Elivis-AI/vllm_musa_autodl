@@ -319,14 +319,8 @@ def init_worker_distributed_environment(
         # NOTE(woosuk): We don't initialize pynccl process group when world size
         # is 1.
         # NOTE(kaichao): By default, pynccl is initialized for tp group.
-        if backend == "mccl":
-            torch.distributed.all_reduce(torch.zeros(1).musa())
-            if pymccl_utils.is_initialized():
-                pymccl_utils.all_reduce(torch.zeros(1).musa())
-        else:
-            torch.distributed.all_reduce(torch.zeros(1).cuda())
-            if pymccl_utils.is_initialized():
-                pymccl_utils.all_reduce(torch.zeros(1).cuda())
+        pymccl_utils.init_process_group(
+                    group=get_tensor_model_parallel_cpu_group())
 
     # Initialize a custom fast all-reduce implementation.
     if not parallel_config.disable_custom_all_reduce:
@@ -334,9 +328,8 @@ def init_worker_distributed_environment(
 
     # A small all_reduce for warmup.
     if backend == "mccl":
-        torch.distributed.all_reduce(torch.zeros(1).musa())
-        if pymccl_utils.is_initialized():
-            pymccl_utils.all_reduce(torch.zeros(1).musa())
+        # fix mccl bugs
+        return
     else:
         torch.distributed.all_reduce(torch.zeros(1).cuda())
         if pymccl_utils.is_initialized():
