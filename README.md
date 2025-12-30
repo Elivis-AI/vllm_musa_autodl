@@ -43,7 +43,7 @@ MUSA的一大优势是CUDA兼容，通过musify工具，我们可以快速将官
 | `PhiForCausalLM` | Phi | `microsoft/phi-1_5`, `microsoft/phi-2`, etc. |  |
 | `Phi3ForCausalLM` | Phi-3 | `microsoft/Phi-3-mini-4k-instruct`, `microsoft/Phi-3-mini-128k-instruct`, etc. |  |
 | `QWenLMHeadModel` | Qwen | `Qwen/Qwen-7B`, `Qwen/Qwen-7B-Chat`, etc. |  |
-| `Qwen2ForCausalLM` | Qwen2 | `Qwen/Qwen2-beta-7B`, `Qwen/Qwen2-beta-7B-Chat`, etc. | ✅ |
+| `Qwen2ForCausalLM` | Qwen2/Qwen2.5 | `Qwen/Qwen2-beta-7B`, `Qwen/Qwen2-beta-7B-Chat`, `Qwen/Qwen2.5-7B`, `Qwen/Qwen2.5-7B-Instruct`, etc. | ✅ |
 | `Qwen2MoeForCausalLM` | Qwen2MoE | `Qwen/Qwen1.5-MoE-A2.7B`, `Qwen/Qwen1.5-MoE-A2.7B-Chat`, etc. |  |
 | `StableLmForCausalLM` | StableLM | `stabilityai/stablelm-3b-4e1t/`, `stabilityai/stablelm-base-alpha-7b-v2`, etc. |  |
 
