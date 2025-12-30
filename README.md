@@ -3,6 +3,7 @@
 > 主要更新：
 > - 非常感谢踩坑文章[中国科学院大学GPU架构与编程大作业二 摩尔线程赛道  (MTT S4000) AUTODL部署与测试指南 - 求索者freedom的文章 - 知乎](https://zhuanlan.zhihu.com/p/1989072964000453732)，修复了提到的原仓库中的许多bug
 > - 构建了适配AutoDL摩尔线程的vLLM轮子
+> - 添加了跳过预热的选项，极大加速了模型加载时间
 
 
 摩尔线程致力于构建完善好用的国产GPU应用生态，自主研发了MUSA架构及软件平台。vllm项目是业界广泛使用的大语言模型的推理和服务引擎，使用CUDA/ROCm提供GPU加速能力。为了方便摩尔线程GPU用户使用vllm框架，我们发起vllm_musa开源项目为vllm提供MUSA加速，让用户可释放摩尔线程GPU的澎湃算力。
@@ -73,6 +74,10 @@ bash build_musa.sh
 ```
 ## 测试示例
 ```
+# 跳过预热以极大提速模型加载过程
+import os
+os.environ["SKIP_PROFILE_RUN"] = "1"
+
 from vllm import LLM, SamplingParams
 from transformers import AutoTokenizer, LlamaForCausalLM
 import transformers
