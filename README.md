@@ -11,6 +11,42 @@
 
 MUSA的一大优势是CUDA兼容，通过musify工具，我们可以快速将官方代码porting至MUSA软件栈，用户可以根据文档自行升级vllm版本并适配MUSA软件栈。
 
+## 支持模型列表⚠️
+此版vllm最后更新时间为2024年四月，请注意不支持最新版的DeepSeek和Qwen3等系列模型，详细支持列表如下：
+
+| Architecture | Models | Example HuggingFace Models | LoRA |
+|-------------|--------|----------------------------|------|
+| `AquilaForCausalLM` | Aquila | `BAAI/Aquila-7B`, `BAAI/AquilaChat-7B`, etc. | ✅ |
+| `BaiChuanForCausalLM` | Baichuan | `baichuan-inc/Baichuan2-13B-Chat`, `baichuan-inc/Baichuan-7B`, etc. | ✅ |
+| `ChatGLMModel` | ChatGLM | `THUDM/chatglm2-6b`, `THUDM/chatglm3-6b`, etc. | ✅ |
+| `CohereForCausalLM` | Command-R | `CohereForAI/c4ai-command-r-v01`, etc. |  |
+| `DbrxForCausalLM` | DBRX | `databricks/dbrx-base`, `databricks/dbrx-instruct`, etc. |  |
+| `DeciLMForCausalLM` | DeciLM | `Deci/DeciLM-7B`, `Deci/DeciLM-7B-instruct`, etc. |  |
+| `BloomForCausalLM` | BLOOM, BLOOMZ, BLOOMChat | `bigscience/bloom`, `bigscience/bloomz`, etc. |  |
+| `FalconForCausalLM` | Falcon | `tiiuae/falcon-7b`, `tiiuae/falcon-40b`, `tiiuae/falcon-rw-7b`, etc. |  |
+| `GemmaForCausalLM` | Gemma | `google/gemma-2b`, `google/gemma-7b`, etc. | ✅ |
+| `GPT2LMHeadModel` | GPT-2 | `gpt2`, `gpt2-xl`, etc. |  |
+| `GPTBigCodeForCausalLM` | StarCoder, SantaCoder, WizardCoder | `bigcode/starcoder`, `bigcode/gpt_bigcode-santacoder`, `WizardLM/WizardCoder-15B-V1.0`, etc. |  |
+| `GPTJForCausalLM` | GPT-J | `EleutherAI/gpt-j-6b`, `nomic-ai/gpt4all-j`, etc. |  |
+| `GPTNeoXForCausalLM` | GPT-NeoX, Pythia, OpenAssistant, Dolly V2, StableLM | `EleutherAI/gpt-neox-20b`, `EleutherAI/pythia-12b`, `OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5`, `databricks/dolly-v2-12b`, `stabilityai/stablelm-tuned-alpha-7b`, etc. |  |
+| `InternLMForCausalLM` | InternLM | `internlm/internlm-7b`, `internlm/internlm-chat-7b`, etc. | ✅ |
+| `InternLM2ForCausalLM` | InternLM2 | `internlm/internlm2-7b`, `internlm/internlm2-chat-7b`, etc. |  |
+| `JAISLMHeadModel` | Jais | `core42/jais-13b`, `core42/jais-13b-chat`, `core42/jais-30b-v3`, `core42/jais-30b-chat-v3`, etc. |  |
+| `LlamaForCausalLM` | LLaMA, Llama 2, Meta Llama 3, Vicuna, Alpaca, Yi | `meta-llama/Meta-Llama-3-8B-Instruct`, `meta-llama/Meta-Llama-3-70B-Instruct`, `meta-llama/Llama-2-13b-hf`, `meta-llama/Llama-2-70b-hf`, `openlm-research/open_llama_13b`, `lmsys/vicuna-13b-v1.3`, `01-ai/Yi-6B`, `01-ai/Yi-34B`, etc. | ✅ |
+| `MiniCPMForCausalLM` | MiniCPM | `openbmb/MiniCPM-2B-sft-bf16`, `openbmb/MiniCPM-2B-dpo-bf16`, etc. |  |
+| `MistralForCausalLM` | Mistral, Mistral-Instruct | `mistralai/Mistral-7B-v0.1`, `mistralai/Mistral-7B-Instruct-v0.1`, etc. | ✅ |
+| `MixtralForCausalLM` | Mixtral-8x7B, Mixtral-8x7B-Instruct | `mistralai/Mixtral-8x7B-v0.1`, `mistralai/Mixtral-8x7B-Instruct-v0.1`, `mistral-community/Mixtral-8x22B-v0.1`, etc. | ✅ |
+| `MPTForCausalLM` | MPT, MPT-Instruct, MPT-Chat, MPT-StoryWriter | `mosaicml/mpt-7b`, `mosaicml/mpt-7b-storywriter`, `mosaicml/mpt-30b`, etc. |  |
+| `OLMoForCausalLM` | OLMo | `allenai/OLMo-1B-hf`, `allenai/OLMo-7B-hf`, etc. |  |
+| `OPTForCausalLM` | OPT, OPT-IML | `facebook/opt-66b`, `facebook/opt-iml-max-30b`, etc. |  |
+| `OrionForCausalLM` | Orion | `OrionStarAI/Orion-14B-Base`, `OrionStarAI/Orion-14B-Chat`, etc. |  |
+| `PhiForCausalLM` | Phi | `microsoft/phi-1_5`, `microsoft/phi-2`, etc. |  |
+| `Phi3ForCausalLM` | Phi-3 | `microsoft/Phi-3-mini-4k-instruct`, `microsoft/Phi-3-mini-128k-instruct`, etc. |  |
+| `QWenLMHeadModel` | Qwen | `Qwen/Qwen-7B`, `Qwen/Qwen-7B-Chat`, etc. |  |
+| `Qwen2ForCausalLM` | Qwen2 | `Qwen/Qwen2-beta-7B`, `Qwen/Qwen2-beta-7B-Chat`, etc. | ✅ |
+| `Qwen2MoeForCausalLM` | Qwen2MoE | `Qwen/Qwen1.5-MoE-A2.7B`, `Qwen/Qwen1.5-MoE-A2.7B-Chat`, etc. |  |
+| `StableLmForCausalLM` | StableLM | `stabilityai/stablelm-3b-4e1t/`, `stabilityai/stablelm-base-alpha-7b-v2`, etc. |  |
+
 ## 依赖
 
 - musa_toolkit >= dev3.0.0
@@ -20,7 +56,7 @@ MUSA的一大优势是CUDA兼容，通过musify工具，我们可以快速将官
 - ray >= 2.9
 - vllm v0.4.2
 
-## 使用
+## 安装
 ### 直接安装
 从Release中下载编译好的wheel文件直接安装。已经在AutoDL摩尔线程专区MTT S4000机器上验证过，其余环境不保证可用性，请优先使用手动编译的方式安装。
 
@@ -32,7 +68,9 @@ pip install vllm-0.4.2+musa-cp310-cp310-linux_x86_64.whl
 pip install --force-reinstall --no-deps vllm-0.4.2+musa-cp310-cp310-linux_x86_64.whl
 ```
 ### 手动编译
-运行 `bash build_musa.sh`
+```
+bash build_musa.sh
+```
 ## 测试示例
 ```
 from vllm import LLM, SamplingParams
